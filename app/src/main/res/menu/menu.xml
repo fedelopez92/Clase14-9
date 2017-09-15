@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/opBuscar" app:showAsAction="always" app:actionViewClass="android.support.v7.widget.SearchView"></item>
+    <item android:id="@+id/op1" android:title="Opcion1" app:showAsAction="always" android:icon="@android:drawable/ic_menu_call"></item>
+
+    <item android:title="Mas opciones">
+        <item android:id="@+id/op2" android:title="Opcion2"></item>
+    </item>
+
+    <item android:id="@+id/op4" android:title="CambiarActivity"></item>
+
+    <group android:id="@+id/grupo" android:checkableBehavior="all" android:enabled="false">
+        <item android:id="@+id/op3" android:title="opcion3"></item>
+    </group>
+
+</menu>
