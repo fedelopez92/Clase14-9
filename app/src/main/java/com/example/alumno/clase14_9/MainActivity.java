@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,11 +18,24 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 //OnQueryTextListener es una interfaz que se utiliza para el SearchView
 
+    private static final int PERMISO_REQUERIDO = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Solicito permiso para que realize la llamada
+        if (ContextCompat.checkSelfPermission(this,Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CALL_PHONE)) {
+
+
+            } else {
+
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, PERMISO_REQUERIDO);
+            }
+        }
 
     }
 
@@ -41,14 +55,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     public boolean onOptionsItemSelected(MenuItem item) { //en este metodo se pone lo que debe hacer cada opcion
         switch (item.getItemId()) {
             case R.id.op1:
-                //Log.d("Click", "Se hizo click en opcion 1");
                 Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:44444444"));//llama al 44444444
-                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    
-
-                }else{
-                    startActivity(intent);
-                }
+                startActivity(intent);
                 break;
 
             case R.id.op4:
@@ -56,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 intent2.putExtra("clave1","valor String");//le paso valor a la otra activity
                 intent2.putExtra("clave2",53);
                 startActivity(intent2);
+                break;
 
             case android.R.id.home: //hace referencia al boton de back
                 finish();//sale de la aplicacion
